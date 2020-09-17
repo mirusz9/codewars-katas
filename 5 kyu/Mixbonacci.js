@@ -52,6 +52,41 @@ const tet = (n) => {
 	return sequence[sequence.length - 4];
 }
 
-for (let i = 0; i < 10; i++) {
-	console.log(tet(i));
+const sequences = {
+    fib: {
+        func: fib,
+        count: 0,
+    },
+    pad: {
+        func: pad,
+        count: 0,
+    },
+    jac: {
+        func: jac,
+        count: 0,
+    },
+    pel: {
+        func: pel,
+        count: 0,
+    },
+    tri: {
+        func: tri,
+        count: 0,
+    },
+    tet: {
+        func: tet,
+        count: 0,
+    }
+}
+
+const mixbonacci = (pattern, length) => {
+    if (length == 0 || pattern.length == 0) return [];
+
+    const newPattern = pattern;
+    if (length > pattern.length)
+    const originalLength = pattern.length;
+
+    while(newPattern.length < length) {
+        newPattern.push(newPattern[newPattern.length - 1 - originalLength])
+    }
 }
