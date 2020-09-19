@@ -8,7 +8,7 @@ const fib = (n) => {
 };
 
 const pad = (n) => {
-	const sequence = [1, 1, 1];
+	const sequence = [1, 0, 0];
 	while (sequence.length < n + 3) {
 		const length = sequence.length;
 		sequence.push(sequence[length - 2] + sequence[length - 3]);
@@ -38,55 +38,76 @@ const tri = (n) => {
 	const sequence = [0, 0, 1];
 	while (sequence.length < n + 3) {
 		const length = sequence.length;
-		sequence.push(sequence[length - 1] + sequence[length - 2] + sequence[length - 3]);
+		sequence.push(
+			sequence[length - 1] + sequence[length - 2] + sequence[length - 3]
+		);
 	}
 	return sequence[sequence.length - 3];
-}
+};
 
 const tet = (n) => {
 	const sequence = [0, 0, 0, 1];
 	while (sequence.length < n + 4) {
 		const length = sequence.length;
-		sequence.push(sequence[length - 1] + sequence[length - 2] + sequence[length - 3] + sequence[length - 4]);
+		sequence.push(
+			sequence[length - 1] +
+				sequence[length - 2] +
+				sequence[length - 3] +
+				sequence[length - 4]
+		);
 	}
 	return sequence[sequence.length - 4];
-}
-
-const sequences = {
-    fib: {
-        func: fib,
-        count: 0,
-    },
-    pad: {
-        func: pad,
-        count: 0,
-    },
-    jac: {
-        func: jac,
-        count: 0,
-    },
-    pel: {
-        func: pel,
-        count: 0,
-    },
-    tri: {
-        func: tri,
-        count: 0,
-    },
-    tet: {
-        func: tet,
-        count: 0,
-    }
-}
+};
 
 const mixbonacci = (pattern, length) => {
-    if (length == 0 || pattern.length == 0) return [];
+	if (length == 0 || pattern.length == 0) return [];
 
-    const newPattern = pattern;
-    if (length > pattern.length)
-    const originalLength = pattern.length;
+	// Sequences and their counts
+	const sequences = {
+		fib: {
+			func: fib,
+			count: 0,
+		},
+		pad: {
+			func: pad,
+			count: 0,
+		},
+		jac: {
+			func: jac,
+			count: 0,
+		},
+		pel: {
+			func: pel,
+			count: 0,
+		},
+		tri: {
+			func: tri,
+			count: 0,
+		},
+		tet: {
+			func: tet,
+			count: 0,
+		},
+	};
 
-    while(newPattern.length < length) {
-        newPattern.push(newPattern[newPattern.length - 1 - originalLength])
-    }
-}
+	let newPattern = pattern;
+	const originalLength = pattern.length;
+
+	// Extending or slicing the pattern
+	if (length > newPattern.length) {
+		while (newPattern.length < length) {
+			newPattern.push(newPattern[newPattern.length - originalLength]);
+		}
+	} else {
+		newPattern = pattern.slice(0, length);
+	}
+
+	// Calculating the result
+	const result = [];
+	for (let i = 0; i < newPattern.length; i++) {
+		const currentSeq = sequences[newPattern[i]];
+		result.push(currentSeq.func(currentSeq.count));
+		currentSeq.count++;
+	}
+	return result;
+};
