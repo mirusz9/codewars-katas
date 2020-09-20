@@ -90,7 +90,7 @@ const mixbonacci = (pattern, length) => {
 		},
 	};
 
-	let newPattern = pattern;
+	let newPattern = [...pattern];
 	const originalLength = pattern.length;
 
 	// Extending or slicing the pattern
